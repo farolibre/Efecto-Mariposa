@@ -352,7 +352,7 @@ def main(page: ft.Page):
     )
     
     btn_historial = ft.IconButton(
-        icon=ft.icons.HISTORY_EDGE,
+        icon=ft.icons.ACCESS_TIME,
         icon_color=ft.Colors.AMBER_400,
         on_click=mostrar_historial,
         tooltip="📜 Ver historial",
