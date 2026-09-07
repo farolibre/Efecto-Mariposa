@@ -351,11 +351,11 @@ def main(page: ft.Page):
         ),
     )
     
-    btn_historial = ft.IconButton(
-        icon=ft.icons.INFO,
-        icon_color=ft.Colors.AMBER_400,
-        on_click=mostrar_historial,
-        tooltip="📜 Ver historial",
+    btn_historial = ft.TextButton(
+    "📜 Historial",
+    on_click=mostrar_historial,
+    style=ft.ButtonStyle(color=ft.Colors.AMBER_400),
+)
     )
     
     txt_respuesta = ft.TextField(
