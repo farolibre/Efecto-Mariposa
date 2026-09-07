@@ -12,7 +12,7 @@ FRASES = [
     "✨ El destino está tejiendo tu respuesta...",
     "🌙 La sabiduría ancestral se activa...",
     "⚡ El Oráculo del Dominó está respondiendo...",
-    "🎩 ¡El velo del futuro se levanta!...",
+    " ¡El velo del futuro se levanta!...",
     "🌟 Una visión está por llegar...",
     "🌀 Las consecuencias se despliegan...",
 ]
@@ -27,24 +27,25 @@ def preguntar_a_ia(pregunta):
         "Content-Type": "application/json"
     }
     data = {
-        "model": "llama3-70b-8192",
+        "model": "llama-3.3-70b-versatile",
         "messages": [
             {"role": "system", "content": "Eres el Oráculo del Dominó. Hablas con sabiduría ancestral. Tus respuestas son profundas, claras y visuales. Te gusta usar metáforas y conexiones entre eventos."},
             {"role": "user", "content": pregunta}
         ],
-        "max_tokens": 800
+        "max_tokens": 800,
+        "temperature": 0.7
     }
     try:
         r = requests.post(url, headers=headers, json=data, timeout=30)
         if r.status_code == 200:
             return r.json()["choices"][0]["message"]["content"]
         else:
-            return f"Error: {r.status_code}"
+            return f"Error {r.status_code}: {r.text}"
     except Exception as e:
-        return f"Error: {e}"
+        return f"Error de conexión: {e}"
 
 def main(page: ft.Page):
-    page.title = "🦋 Efecto Mariposa"
+    page.title = " Efecto Mariposa"
     page.theme_mode = ft.ThemeMode.DARK
     page.bgcolor = ft.Colors.DEEP_PURPLE_900
     page.padding = 30
@@ -82,7 +83,7 @@ def main(page: ft.Page):
     )
 
     spinner = ft.ProgressRing(visible=False, color=ft.Colors.AMBER_400)
-    frase_oraculo = ft.Text("🧞‍♂️ El Oráculo está listo", size=14, color=ft.Colors.AMBER_200, italic=True)
+    frase_oraculo = ft.Text("🧞‍️ El Oráculo está listo", size=14, color=ft.Colors.AMBER_200, italic=True)
     progress_bar = ft.ProgressBar(width=600, color=ft.Colors.AMBER_400, bgcolor=ft.Colors.PURPLE_800, visible=False)
 
     def explorar(e):
@@ -109,13 +110,13 @@ def main(page: ft.Page):
         spinner.visible = False
         progress_bar.visible = False
         txt_respuesta.value = respuesta
-        frase_oraculo.value = "🧞‍♂️ El Oráculo ha hablado"
+        frase_oraculo.value = "🧞‍️ El Oráculo ha hablado"
         page.update()
 
     def limpiar(e):
         txt_pregunta.value = ""
         txt_respuesta.value = ""
-        frase_oraculo.value = "🧞‍♂️ El Oráculo está listo"
+        frase_oraculo.value = "‍♂️ El Oráculo está listo"
         page.update()
 
     btn_explorar = ft.ElevatedButton(
